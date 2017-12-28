@@ -4,10 +4,17 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!"
+      message: "Welcome to Vue.js!",
+      items: []
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/v1/items").then(
+      function(response) {
+        this.items = response.data;
+      }.bind(this)
+    );
+  },
   methods: {},
   computed: {}
 };
