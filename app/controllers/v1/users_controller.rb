@@ -1,4 +1,9 @@
 class V1::UsersController < ApplicationController
+  def index 
+    users = User.all
+    render json: users.as_json
+  end 
+
   def create
     user = User.new(
       first_name: params[:first_name],
