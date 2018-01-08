@@ -14,10 +14,12 @@
 </head>
 <body>
 
-  <div>
-    <button class="user-link" href="/#/users">All Users</button>
-    <button class="user-link" href="/#/">Home Page</button>
-  </div>
+  <a href="/#/">Home Page</a>
+  <a href="/#/users">All Users</a>
+  <a href="/#/signup">Signup</a>
+  <a href="/#/login">Login</a>
+  <a href="/#/logout">Logout</a>
+  <a href="/#/items/new">New Item</a>
 
   <div id="app">
     <router-view></router-view>
@@ -36,6 +38,114 @@
       <p class="item-status">Status: {{ item.status }}</p>
       <p class="item-size">Size: {{ item.size }}</p>
       <p class="item-brand">Brand: {{ item.brand }}</p>
+      <p class="item-color">Color: {{ item.color }}</p>
+      <p class="item-pattern">Pattern: {{ item.pattern }}</p>
     </div>
+  </div>
+</template>
+
+<template id="user-page">
+  <div class="container">
+    <h1>All Users Page</h1>
+    <h3>this page displays all users in the database</h3>
+    <div class="user-list" v-for="user in users">
+      <h4 class="user-name">{{user.first_name}} {{user.last_name}}</h4>
+      <p class="user-email">{{user.email}}</p>
+      <router-link v-bind:to="{ path: '/users/' + user.id }">User's Wardrobe</router-link>
+    </div>
+  </div>
+</template>
+
+<template id="user-show-page">
+  <div class="container">
+    <h1>{{ message }}</h1> 
+    <h2> You are view {{user.first_name}} {{user.last_name}}'s closet</h2>
+    <div class="item-list" v-for="item in user.items">
+      <h4 class="item-title">{{ item.name }}</h4>
+      <p class="item-status">Status: {{ item.status }}</p>
+      <p class="item-size">Size: {{ item.size }}</p>
+      <p class="item-brand">Brand: {{ item.brand }}</p>
+      <p class="item-color">Color: {{ item.color }}</p>
+      <p class="item-pattern">Pattern: {{ item.pattern }}</p>
+    </div>
+    <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+  </div>
+</template>
+
+<template id="add-item-page">
+  <div class="container">
+    <h1>Add New Item to Your Closet</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+    <div class="form-group">
+      <label>Item Name:</label>
+      <input type="text" class="form-control" v-model="name">
+    </div>
+    <div class="form-group">
+      <label>Size:</label>
+      <input type="text" class="form-control" v-model="size">
+    </div>
+    <div class="form-group">
+      <label>Brand:</label>
+      <input type="text" class="form-control" v-model="brand">
+    </div>
+    <div class="form-group">
+      <label>Color:</label>
+      <input type="text" class="form-control" v-model="color">
+    </div>
+    <div class="form-group">
+      <label>Pattern:</label>
+      <input type="text" class="form-control" v-model="pattern">
+    </div>
+    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+  </div>
+</template>
+
+<template id="signup-page">
+  <div class="container">
+    <h1>Signup</h1>
+    <ul>
+      <li class="text-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    <div class="form-group">
+      <label>First Name:</label> 
+      <input type="text" class="form-control" v-model="firstName">
+    </div>
+    <div class="form-group">
+      <label>Last Name:</label> 
+      <input type="text" class="form-control" v-model="lastName">
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" class="form-control" v-model="email">
+    </div>
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" class="form-control" v-model="password">
+    </div>
+    <div class="form-group">
+      <label>Password confirmation:</label>
+      <input type="password" class="form-control" v-model="passwordConfirmation">
+    </div>
+    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+  </div>
+</template>
+
+<template id="login-page">
+  <div class="container">
+    <h1>Login</h1>
+    <ul>
+      <li class="text-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" class="form-control" v-model="email">
+    </div>
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" class="form-control" v-model="password">
+    </div>
+    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
   </div>
 </template>
