@@ -40,6 +40,8 @@
       <p class="item-brand">Brand: {{ item.brand }}</p>
       <p class="item-color">Color: {{ item.color }}</p>
       <p class="item-pattern">Pattern: {{ item.pattern }}</p>
+      <img v-bind:src="item.image ? item.image:'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'" v-bind:alt="item.name" width="200">
+      <!-- <p class="item-image">Image: {{ item.image }}</p> -->
     </div>
   </div>
 </template>
@@ -67,6 +69,7 @@
       <p class="item-brand">Brand: {{ item.brand }}</p>
       <p class="item-color">Color: {{ item.color }}</p>
       <p class="item-pattern">Pattern: {{ item.pattern }}</p>
+      <img v-bind:src="item.image ? item.image:'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'" v-bind:alt="item.name" width="200">
     </div>
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
   </div>
