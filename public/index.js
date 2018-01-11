@@ -43,7 +43,6 @@ var UserShowPage = {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      items: [],
       user: {}
     };
   },
@@ -64,20 +63,23 @@ var AddItemPage = {
   data: function() {
     return {
       name: "",
+      color: "",
+      pattern: "",
       size: "",
       brand: "",
-      color: "",
-      pattern: ""
+      errors: []
     };
   },
   methods: {
     submit: function() {
       var params = {
         name: this.name,
+        status: 1,
+        color: this.color,
+        pattern: this.pattern,
         size: this.size,
         brand: this.brand,
-        color: this.color,
-        pattern: this.pattern
+        user_id: current_user.id
       };
       axios
         .post("/v1/items", params)
@@ -109,8 +111,8 @@ var SignupPage = {
   methods: {
     submit: function() {
       var params = {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        first_name: this.firstName,
+        last_name: this.lastName,
         email: this.email,
         password: this.password,
         password_confirmation: this.passwordConfirmation

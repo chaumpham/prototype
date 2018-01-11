@@ -2,11 +2,7 @@ class V1::ItemsController < ApplicationController
   # before_action :authenticate_user
 
   def index
-    #items = Item.all
     items = current_user.items
-    #if params[:user_id]
-    #   items = User.find_by(id: params[:user_id]).items
-    # end
     render json: items.as_json
   end
 

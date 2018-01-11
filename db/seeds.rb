@@ -12,6 +12,12 @@ user.save
 user = User.new({email: "ss@gmail.com", password: "test2", first_name: "Shvetha", last_name: "Suvarna"})
 user.save
 
+user = User.new({email: "jp@gmail.com", password: "test3", first_name: "Jaewon", last_name: "Park"})
+user.save
+
+user = User.new({email: "ac@gmail.com", password: "test4", first_name: "Allen", last_name: "Cheng"})
+user.save
+
 item = Item.new({name: "black AX pants", status: 1, color: "black", pattern: "solid", size: "XS", brand: "Armani Exchange", user_id:1})
 item.save
 
@@ -33,5 +39,21 @@ item.save
 item = Item.new({name: "body fit long sleeved shirt", status:1, color: "black", pattern:"solid", size: "XXS", brand: "J.Crew", user_id:1})
 item.save
 
-order = Order.new({item_id:1, borrower_id:2, owner_id:1,return_date: DateTime.new(2017, 12, 17), accepted:true})
+item = Item.new({name: "maroon fit sweater", status:1, color: "maroon", pattern:"solid", size: "S", brand: "Forever 21", user_id:2})
+item.save
+
+item = Item.new({name: "adidas sneakers", status:1, color: "multi", pattern:"striped", size: "8", brand: "adidas", user_id:2})
+item.save
+
+item = Item.new({name: "gray flower printed cardigan", status:1, color: "gray", pattern:"solid", size: "XS", brand: "unknown", user_id:3})
+item.save
+
+item = Item.new ({name: "body fit ivory crewneck lightweight sweater", status:1, color: "ivory", pattern:"solid", size: "M", brand: "H&M", user_id:4})
+item.save
+
+item = Item.new({name: "straight cut jeans", status:1, color: "navy", pattern:"solid", size: "32", brand: "J.Crew", user_id:4})
+item.save
+
+order = Order.new({item_id:4, borrower_id:2, owner_id:1,return_date: DateTime.new(2018, 1, 10), accepted:true})
 order.save
+
