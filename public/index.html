@@ -263,7 +263,7 @@
 <template id="user-show-page">
   <div class="container">
     <h1>{{ message }}</h1> 
-    <h2> You are view {{user.first_name}} {{user.last_name}}'s closet</h2>
+    <h2> You are viewing {{user.first_name}} {{user.last_name}}'s closet</h2>
     <div class="item-list" v-for="item in user.items">
       <h4 class="item-title">{{ item.name }}</h4>
       <p class="item-status">Status: {{ item.status }}</p>
@@ -272,6 +272,9 @@
       <p class="item-color">Color: {{ item.color }}</p>
       <p class="item-pattern">Pattern: {{ item.pattern }}</p>
       <img v-bind:src="item.image ? item.image:'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'" v-bind:alt="item.name" width="200">
+      <div>
+      <button class="btn btn-primary" v-on:click="borrow()">borrow this item</button>
+  		</div>
     </div>
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
   </div>
@@ -285,31 +288,31 @@
       </ul>
     <div class="form-group">
       <label>Item Name:</label>
-      <input type="text" class="form-control" v-model="name">
+      <input type="text" class="form-control" v-model="newItem.name">
     </div>
     <div class="form-group">
       <label>Size:</label>
-      <input type="text" class="form-control" v-model="size">
+      <input type="text" class="form-control" v-model="newItem.size">
     </div>
     <div class="form-group">
       <label>Brand:</label>
-      <input type="text" class="form-control" v-model="brand">
+      <input type="text" class="form-control" v-model="newItem.brand">
     </div>
     <div class="form-group">
       <label>Color:</label>
-      <input type="text" class="form-control" v-model="color">
+      <input type="text" class="form-control" v-model="newItem.color">
     </div>
     <div class="form-group">
       <label>Pattern:</label>
-      <input type="text" class="form-control" v-model="pattern">
+      <input type="text" class="form-control" v-model="newItem.pattern">
     </div>
 
     <div>
-     <lable>Image:</label>
+     <label>Image:</label>
      <input type="file" v-on:change="uploadFile($event)">
     </div>
 
-    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    <button class="btn btn-primary" v-on:click="uploadFile()">Submit</button>
   </div>
 </template>
 

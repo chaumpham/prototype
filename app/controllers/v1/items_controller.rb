@@ -14,6 +14,7 @@ class V1::ItemsController < ApplicationController
       pattern: params["pattern"],
       size: params["size"],
       brand: params["brand"],
+      image: params["image"],
       user_id: current_user.id
     )
     item.save

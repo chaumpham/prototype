@@ -54,35 +54,17 @@ var UserShowPage = {
       }.bind(this)
     );
   },
-  methods: {},
-  computed: {}
-};
-
-var AddItemPage = {
-  template: "#add-item-page",
-  data: function() {
-    return {
-      name: "",
-      color: "",
-      pattern: "",
-      size: "",
-      brand: "",
-      errors: []
-    };
-  },
   methods: {
-    submit: function() {
+    borrow: function() {
       var params = {
-        name: this.name,
-        status: 1,
-        color: this.color,
-        pattern: this.pattern,
-        size: this.size,
-        brand: this.brand,
-        user_id: current_user.id
+        borrower_id: current_user.id,
+        item_id: this.item_id,
+        // owner_id: this.user_id,
+        // return_date: this.return_date,
+        accepted: false
       };
       axios
-        .post("/v1/items", params)
+        .post("v1/orders", params)
         .then(function(response) {
           router.push("/");
         })
@@ -92,22 +74,69 @@ var AddItemPage = {
             router.push("/login");
           }.bind(this)
         );
-    },
+    }
+  },
+  computed: {}
+};
+
+var AddItemPage = {
+  template: "#add-item-page",
+  data: function() {
+    return {
+      newItem: {
+        name: "",
+        color: "",
+        pattern: "",
+        size: "",
+        brand: ""
+      },
+      errors: []
+    };
+  },
+  methods: {
+    // submit: function() {
+    //   var params = {
+    //     name: this.name,
+    //     status: 1,
+    //     color: this.color,
+    //     pattern: this.pattern,
+    //     size: this.size,
+    //     brand: this.brand,
+    //     user_id: current_user.id
+    //   };
+    //   axios
+    //     .post("/v1/items", params)
+    //     .then(function(response) {
+    //       router.push("/");
+    //     })
+    //     .catch(
+    //       function(error) {
+    //         this.errors = error.response.data.errors;
+    //         router.push("/login");
+    //       }.bind(this)
+    //     );
+    // },
     uploadFile: function(event) {
       if (event.target.files.length > 0) {
         var formData = new FormData();
-        formData.append("title", this.title);
-        formData.append("body", this.body);
+        formData.append("name", this.newItem.name);
+        formData.append("color", this.newItem.color);
+        formData.append("pattern", this.newItem.pattern);
+        formData.append("size", this.newItem.size);
+        formData.append("brand", this.newItem.brand);
         formData.append("image", event.target.files[0]);
 
-        axios
-          .post("http://localhost:3000/v1/posts", formData)
-          .then(function(response) {
-            console.log(response);
-            this.title = "";
-            this.body = "";
-            event.target.value = "";
-          });
+        axios.post("/v1/items", formData).then(function(response) {
+          console.log(response);
+          this.newItem = {
+            name: "",
+            color: "",
+            pattern: "",
+            size: "",
+            brand: ""
+          };
+          event.target.value = "";
+        });
       }
     }
   }
