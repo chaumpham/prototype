@@ -2,8 +2,12 @@ class V1::ItemsController < ApplicationController
   # before_action :authenticate_user
 
   def index
-    items = current_user.items
-    render json: items.as_json
+    if current_user
+      items = current_user.items
+      render json: items.as_json
+    else 
+      render json: {message: "Please log in to view your home page"}
+    end
   end
 
   def create
@@ -17,7 +21,10 @@ class V1::ItemsController < ApplicationController
       image: params["image"],
       user_id: current_user.id
     )
-    item.save
-    render json: item.as_json
+    if item.save
+      render json: item.as_json
+    else
+      render json: {errors: order.errors.full_messages}, status: :bad_request
+    end
   end 
 end

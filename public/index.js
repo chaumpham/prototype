@@ -38,6 +38,23 @@ var UserPage = {
   computed: {}
 };
 
+var OrderPage = {
+  template: "#orders-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      orders: []
+    };
+  },
+  created: function() {
+    axios.get("v1/orders").then(
+      function(response) {
+        this.orders = response.data;
+      }.bind(this)
+    );
+  }
+};
+
 var UserShowPage = {
   template: "#user-show-page",
   data: function() {
@@ -55,13 +72,11 @@ var UserShowPage = {
     );
   },
   methods: {
-    borrow: function() {
+    borrow: function(item, user) {
       var params = {
-        borrower_id: current_user.id,
-        item_id: this.item_id,
-        // owner_id: this.user_id,
-        // return_date: this.return_date,
-        accepted: false
+        item_id: item.id,
+        owner_id: item.user_id
+        // return_date: Time.now,/
       };
       axios
         .post("v1/orders", params)
@@ -71,7 +86,6 @@ var UserShowPage = {
         .catch(
           function(error) {
             this.errors = error.response.data.errors;
-            router.push("/login");
           }.bind(this)
         );
     }
@@ -226,7 +240,8 @@ var router = new VueRouter({
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage },
     { path: "/users/:id", component: UserShowPage },
-    { path: "/items/new", component: AddItemPage }
+    { path: "/items/new", component: AddItemPage },
+    { path: "/orders", component: OrderPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

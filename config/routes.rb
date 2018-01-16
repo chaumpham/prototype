@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get "/items" => "items#index"
     post "/items" => "items#create"
 
+    get "/orders" => "orders#index"
     post "/orders" => "orders#create"
   end
 end

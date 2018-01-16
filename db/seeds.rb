@@ -54,6 +54,6 @@ item.save
 item = Item.new({name: "straight cut jeans", status:1, color: "navy", pattern:"solid", size: "32", brand: "J.Crew", user_id:4})
 item.save
 
-order = Order.new({item_id:4, borrower_id:2, owner_id:1,return_date: DateTime.new(2018, 1, 10), accepted:true})
+order = Order.new({item_id:4, borrower_id:2, owner_id:1,return_date: DateTime.new(2018, 1, 20), accepted:false})
 order.save
 
