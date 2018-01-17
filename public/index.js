@@ -15,6 +15,9 @@ var HomePage = {
       }.bind(this)
     );
   },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
   methods: {},
   computed: {}
 };
@@ -47,11 +50,67 @@ var OrderPage = {
     };
   },
   created: function() {
-    axios.get("v1/orders").then(
+    axios.get("/v1/orders").then(
       function(response) {
         this.orders = response.data;
       }.bind(this)
     );
+  }
+};
+
+var RequestsSent = {
+  template: "#requests-sent-page",
+  data: function() {
+    return {
+      orders: []
+    };
+  },
+  created: function() {
+    axios.get("/v1/sent").then(
+      function(response) {
+        this.orders = response.data;
+        console.log(this.orders);
+      }.bind(this)
+    );
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  }
+};
+
+var RequestsReceived = {
+  template: "#requests-received-page",
+  data: function() {
+    return {
+      orders: []
+    };
+  },
+  created: function() {
+    axios.get("/v1/received").then(
+      function(response) {
+        this.orders = response.data;
+      }.bind(this)
+    );
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
+  methods: {
+    sendAcceptRequest: function(order) {
+      console.log("sendAcceptRequest", order);
+      axios
+        .patch("/v1/orders/" + order.id)
+        .then(function(response) {
+          console.log(this.order);
+          router.push("/received");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    },
+    sendDeclineRequest: function() {}
   }
 };
 
@@ -72,7 +131,7 @@ var UserShowPage = {
     );
   },
   methods: {
-    borrow: function(item, user) {
+    borrow: function(item) {
       var params = {
         item_id: item.id,
         owner_id: item.user_id
@@ -81,7 +140,7 @@ var UserShowPage = {
       axios
         .post("v1/orders", params)
         .then(function(response) {
-          router.push("/");
+          router.push("/sent");
         })
         .catch(
           function(error) {
@@ -89,8 +148,7 @@ var UserShowPage = {
           }.bind(this)
         );
     }
-  },
-  computed: {}
+  }
 };
 
 var AddItemPage = {
@@ -241,7 +299,9 @@ var router = new VueRouter({
     { path: "/logout", component: LogoutPage },
     { path: "/users/:id", component: UserShowPage },
     { path: "/items/new", component: AddItemPage },
-    { path: "/orders", component: OrderPage }
+    { path: "/orders", component: OrderPage },
+    { path: "/sent", component: RequestsSent },
+    { path: "/received", component: RequestsReceived }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

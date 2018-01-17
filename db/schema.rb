@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180114191428) do
+ActiveRecord::Schema.define(version: 20180117020813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180114191428) do
     t.integer "borrower_id"
     t.integer "owner_id"
     t.date "return_date"
-    t.boolean "accepted"
+    t.string "accepted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

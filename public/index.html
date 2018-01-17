@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title> Borrowing Made Easy </title>
+		<title> Clothes Borrowing Made Easy </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 		<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -85,10 +85,39 @@
 									<li class="active"><a href="/#/"><span>Home</span></a></li>
 									<li><a href="/#/users">All Users</a></li>
 									<li><a href="/#/orders">All Orders</a></li>
-									<li><a href="/#/signup">Sign Up</a></li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/#/signup">Signup</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/#/login">Login</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/#/logout">Logout</a>
+                    </div>
+                  </li>
+
+									<!-- <li><a href="/#/signup">Sign Up</a></li>
 									<li><a href="/#/login">Log In</a></li>
-									<li><a href="/#/logout">Log Out</a></li>
+									<li><a href="/#/logout">Log Out</a></li> -->
+
+
 									<li><a href="/#/items/new">New Item</a></li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Borrow Requests
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/#/sent">Requests Sent</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/#/received">Requests Received</a>
+                    </div>
+                    </li>
+									<!-- <li><a href="/#/sent">Requests Sent</a></li>
+									<li><a href="/#/received">Requests Received</a></li> -->
 								</ul>
 							</div>
 							<div class="col-md-3">
@@ -156,57 +185,20 @@
     <section id="work">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
-						<div class="fh5co-grid animate-box" style="background-image: url(images/work-1.jpg);">
-							<a class="image-popup text-center" href="#">
-								<div class="work-title">
-									<h3>Don’t Just Stand There</h3>
-									<span>Illustration, Print</span>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="fh5co-grid animate-box" style="background-image: url(images/work-2.jpg);">
-							<a class="image-popup text-center" href="#">
-								<div class="work-title">
-									<h3>Don’t Just Stand There</h3>
-									<span>Illustration, Print</span>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-8">
-						<div class="fh5co-grid animate-box" style="background-image: url(images/work-5.jpg);">
-							<a class="image-popup text-center" href="#">
-								<div class="work-title">
-									<h3>Don’t Just Stand There</h3>
-									<span>Illustration, Print</span>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="fh5co-grid animate-box" style="background-image: url(images/work-4.jpg);">
-							<a class="image-popup text-center" href="#">
-								<div class="work-title">
-									<h3>Don’t Just Stand There</h3>
-									<span>Illustration, Print</span>
-								</div>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-md-12">
-						<div class="fh5co-grid animate-box" style="background-image: url(images/work-3.jpg);">
-							<a class="image-popup text-center" href="#">
-								<div class="work-title">
-									<h3>Ampersand</h3>
-									<span>Illustration, Print</span>
-								</div>
-							</a>
-						</div>
-					</div>
+          <div class="col-md-6" v-for="item in items">
+            <div class="fh5co-grid animate-box" style="background-image: url(images/work-4.jpg);">
+              <a class="image-popup text-center" href="#">
+                <div class="work-title">
+                  <h4 class="item-title">{{ item.name }}</h4>
+                    <p class="item-size">Size: {{ item.size }}</p>
+                    <p class="item-brand">Brand: {{ item.brand }}</p>
+                    <p class="item-status">Status: {{ item.status }}</p>
+                    <!-- <p class="item-color">Color: {{ item.color }}</p> -->
+                    <!-- <p class="item-pattern">Pattern: {{ item.pattern }}</p> -->
+                </div>
+              </a>
+            </div>
+          </div>
 
 				</div>
 			</div>
@@ -275,7 +267,7 @@
       <p class="item-pattern">Pattern: {{ item.pattern }}</p>
       <img v-bind:src="item.image ? item.image:'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'" v-bind:alt="item.name" width="200">
       <div>
-      <button class="btn btn-primary" v-on:click="borrow(item,user)">borrow this item</button>
+      <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
   		</div>
     </div>
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
@@ -288,8 +280,71 @@
 		<h2>this page displays all orders in the database</h2>
 		<div class="order-list" v-for="order in orders">
 			<h3 class="item-id"> Item Id: {{order.item_id}}</h3>
+			<p class="onwer-id"> Owner Id: {{order.owner_id}}</p>
+			<p class="borrower-id"> Borrower Id: {{order.borrower_id}}</p>
 			<p class="return-date"> Return Date: {{order.return_date}}</p>
 			<p class="accepted"> Request Status: {{order.accepted}}</p>
+		</div>
+	</div>
+</template>
+
+<template id="requests-sent-page">
+	<div class="container">
+    
+
+    <section id="intro">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+              <div class="intro animate-box">
+                <h2>You have sent {{ orders.length }} borrow requests</h2>
+              </div>
+            </div>
+          </div>
+        <div>
+      </section>
+
+    <section id="list">
+  		
+  		<div class="order-list" v-for="order in orders">
+  			<h3>Item: {{ order.item.name }}</h3>
+        <p class="onwer-id"> Owner: {{order.owner.first_name}}</p>
+  			<p class="return-date"> Return Date: {{order.return_date}}</p>
+  			<p class="accepted"> Request Status: {{order.accepted}}</p>
+       <!--  <h3 class="item-id"> Item Id: {{order.item_id}}</h3>
+        <p class="borrower-id"> Borrower Id: {{order.borrower_id}}</p> -->
+  		</div>
+    </section>
+
+	</div>
+</template>
+
+<template id="requests-received-page">
+	<div class="container">
+
+     <section id="intro">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+              <div class="intro animate-box">
+                <h2>You have received {{ orders.length }} borrow requests</h2>
+              </div>
+            </div>
+          </div>
+        <div>
+      </section>
+
+		<div class="order-list" v-for="order in orders">
+      <h3>Item: {{ order.item.name }}</h3>
+			<p class="onwer-id"> Borrower: {{order.borrower.first_name}}</p>
+			<p class="return-date"> Return Date: {{order.return_date}}</p>
+			<p class="accepted"> Request Status: {{order.accepted}}</p>
+
+      <div>
+        <button class="btn btn-primary" v-on:click="sendAcceptRequest(order)">accept</button>
+        <button class="btn btn-primary" v-on:click="sendDeclineRequest(order)">decline</button>
+      </div>
+
 		</div>
 	</div>
 </template>

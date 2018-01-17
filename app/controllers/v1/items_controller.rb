@@ -6,7 +6,7 @@ class V1::ItemsController < ApplicationController
       items = current_user.items
       render json: items.as_json
     else 
-      render json: {message: "Please log in to view your home page"}
+      render json: {message: "Please login to view your items"}
     end
   end
 

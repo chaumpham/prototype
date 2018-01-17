@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :items
-  has_many :orders
+  has_many :sent_orders, class_name: "Order", foreign_key: :borrower_id
+  has_many :received_orders, class_name: "Order", foreign_key: :owner_id
 
   def as_json
     {

@@ -10,5 +10,8 @@ Rails.application.routes.draw do
 
     get "/orders" => "orders#index"
     post "/orders" => "orders#create"
+    get "/sent" => "orders#sent"
+    get "/received" => "orders#received"
+    patch "/orders/:id" => "orders#update"
   end
 end
