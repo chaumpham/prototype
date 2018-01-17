@@ -39,9 +39,9 @@ class V1::OrdersController < ApplicationController
   end
 
   def update
-    order_id = params["id"]
+    order_id = params[:id]
     order = Order.find_by(id: order_id)
-    order.accepted = "accepted"
+    order.accepted = params[:status]
     order.save
     render json: order.as_json
   end

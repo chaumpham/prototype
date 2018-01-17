@@ -97,11 +97,13 @@ var RequestsReceived = {
   },
   methods: {
     sendAcceptRequest: function(order) {
-      console.log("sendAcceptRequest", order);
+      // console.log("sendAcceptRequest", order);
+      var params = {
+        status: "accepted"
+      };
       axios
-        .patch("/v1/orders/" + order.id)
+        .patch("/v1/orders/" + order.id, params)
         .then(function(response) {
-          console.log(this.order);
           router.push("/received");
         })
         .catch(
@@ -110,7 +112,21 @@ var RequestsReceived = {
           }.bind(this)
         );
     },
-    sendDeclineRequest: function() {}
+    sendDeclineRequest: function(order) {
+      var params = {
+        status: "declined"
+      };
+      axios
+        .patch("/v1/orders/" + order.id, params)
+        .then(function(response) {
+          router.push("/received");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
   }
 };
 
