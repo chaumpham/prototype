@@ -53,7 +53,7 @@ h4,
 h5,
 h6 {
   color: #000;
-  font-family: "Roboto Slab", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
   margin: 0 0 30px 0;
 }
@@ -132,7 +132,7 @@ h6 {
   margin-left: 0;
 }
 #fh5co-header .nav li a {
-  font-family: "Roboto Slab", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   color: black;
   position: relative;
   font-weight: 400;
