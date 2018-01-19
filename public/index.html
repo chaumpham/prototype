@@ -83,9 +83,9 @@
 							<div class="col-md-6">
 								<ul class="nav text-center">
 									<li class="active"><a href="/#/"><span>Home</span></a></li>
-									<li><a href="/#/users">All Users</a></li>
-									<li><a href="/#/orders">All Orders</a></li>
-
+									<li><a href="/#/users">Explore</a></li>
+                  <li><a href="/#/items">Individual Item</a></li>
+									<!-- <li><a href="/#/orders">All Orders</a></li> -->
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Account
@@ -186,20 +186,20 @@
 			<div class="container">
 				<div class="row">
           <div class="col-md-6" v-for="item in items">
-            <div class="fh5co-grid animate-box" style="background-image: url(images/work-4.jpg);">
+            <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
               <a class="image-popup text-center" href="#">
                 <div class="work-title">
                   <h4 class="item-title">{{ item.name }}</h4>
                     <p class="item-size">Size: {{ item.size }}</p>
                     <p class="item-brand">Brand: {{ item.brand }}</p>
                     <p class="item-status">Status: {{ item.status }}</p>
+                    <router-link v-bind:to="{ path: '/items/' + item.id }">Link to Item</router-link>
                     <!-- <p class="item-color">Color: {{ item.color }}</p> -->
                     <!-- <p class="item-pattern">Pattern: {{ item.pattern }}</p> -->
                 </div>
               </a>
             </div>
           </div>
-
 				</div>
 			</div>
 		</section>
@@ -254,29 +254,59 @@
   </div>
 </template>
 
-<template id="user-show-page">
+<template id="item-show-page">
   <div class="container">
-    <h1>{{ message }}</h1> 
-    <h2> You are viewing {{user.first_name}} {{user.last_name}}'s closet</h2>
-    <div class="item-list" v-for="item in user.items">
-      <h4 class="item-title">{{ item.name }}</h4>
-      <p class="item-status">Status: {{ item.status }}</p>
-      <p class="item-size">Size: {{ item.size }}</p>
-      <p class="item-brand">Brand: {{ item.brand }}</p>
-      <p class="item-color">Color: {{ item.color }}</p>
-      <p class="item-pattern">Pattern: {{ item.pattern }}</p>
-      <img v-bind:src="item.image ? item.image:'http://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg'" v-bind:alt="item.name" width="200">
-      <div>
-      <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
-  		</div>
-    </div>
-    <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+    <h1> {{message}} </h1>
+    <h1>this page shows the individual item within a user's closet</h1>
+    <p>Name: {{item.name}}</p>
   </div>
 </template>
 
+<template id="user-show-page">
+  <div class="container">
+
+    <section id="intro">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+              <div class="intro animate-box">
+                <h2>You are viewing {{user.first_name}}'s closet</h2>
+              </div>
+            </div>
+          </div>
+        <div>
+      </section>
+
+    <section id="work">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6" v-for="item in user.items">
+            <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
+              <a class="image-popup text-center" href="#">
+                <div class="work-title">
+                  <h4 class="item-title">{{ item.name }}</h4>
+                    <p class="item-size">Size: {{ item.size }}</p>
+                    <p class="item-brand">Brand: {{ item.brand }}</p>
+                    <p class="item-status">Status: {{ item.status }}</p>
+                    <div>
+                    <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
+                    </div>
+                    <!-- <p class="item-color">Color: {{ item.color }}</p> -->
+                    <!-- <p class="item-pattern">Pattern: {{ item.pattern }}</p> -->
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+      </div>
+    </section>
+    
+  </div>
+</template> 
+
 <template id="orders-page">
 	<div class="container">
-		<h1>{{ message }}</h1>
 		<h2>this page displays all orders in the database</h2>
 		<div class="order-list" v-for="order in orders">
 			<h3 class="item-id"> Item Id: {{order.item_id}}</h3>
@@ -291,7 +321,6 @@
 <template id="requests-sent-page">
 	<div class="container">
     
-
     <section id="intro">
         <div class="container">
           <div class="row">

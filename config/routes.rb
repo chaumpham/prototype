@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
     get "/items" => "items#index"
     post "/items" => "items#create"
+    get "/items/:id" => "items#show"
+    get "/api" => "items#api"
+    get "/threadgenius" => "items#threadgenius"
 
     get "/orders" => "orders#index"
     post "/orders" => "orders#create"

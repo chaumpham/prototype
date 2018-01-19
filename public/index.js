@@ -41,6 +41,23 @@ var UserPage = {
   computed: {}
 };
 
+var ItemShowPage = {
+  template: "#item-show-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      item: { name: "test" }
+    };
+  },
+  created: function() {
+    axios.get("v1/items" + this.$route.params.id).then(
+      function(response) {
+        this.item = response.data;
+      }.bind(this)
+    );
+  }
+};
+
 var OrderPage = {
   template: "#orders-page",
   data: function() {
@@ -145,6 +162,9 @@ var UserShowPage = {
         console.log(this.user);
       }.bind(this)
     );
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
   },
   methods: {
     borrow: function(item) {
@@ -317,7 +337,8 @@ var router = new VueRouter({
     { path: "/items/new", component: AddItemPage },
     { path: "/orders", component: OrderPage },
     { path: "/sent", component: RequestsSent },
-    { path: "/received", component: RequestsReceived }
+    { path: "/received", component: RequestsReceived },
+    { path: "/items/:id", component: ItemShowPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

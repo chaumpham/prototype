@@ -33,7 +33,7 @@ item.save
 item = Item.new({name: "gray thermo legging", status:1, color: "gray", pattern:"solid", size: "XS", brand: "UNIQLO", user_id:1})
 item.save
 
-item = Item.new({name: "plaid oversized shirt", status:1, color: "multi", pattern:"checked", size: "XS", brand: "nordstrom", user_id:1})
+item = Item.new({name: "plaid oversized shirt", status:1, color: "multi", pattern:"checked", size: "XS", brand: "nordstrom", user_id:1, image: "https://cdna.lystit.com/photos/63c9-2016/01/21/zara-rednavy-check-shirt-red-product-2-044768255-normal.jpeg"})
 item.save
 
 item = Item.new({name: "body fit long sleeved shirt", status:1, color: "black", pattern:"solid", size: "XXS", brand: "J.Crew", user_id:1})
@@ -54,6 +54,6 @@ item.save
 item = Item.new({name: "straight cut jeans", status:1, color: "navy", pattern:"solid", size: "32", brand: "J.Crew", user_id:4})
 item.save
 
-order = Order.new({item_id:4, borrower_id:2, owner_id:1,return_date: DateTime.new(2018, 1, 20), accepted:false})
-order.save
+item = Item.new({name: "zara winter coat navy", status:1, color: "navy", pattern:"solid", size: "S", brand: "Zara", user_id:1, image: "https://dtpmhvbsmffsz.cloudfront.net/posts/2016/10/01/57f0648f4127d005950191a5/m_57f0648f4127d005950191a6.jpg"})
+item.save
 
