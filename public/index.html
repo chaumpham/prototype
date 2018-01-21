@@ -252,15 +252,11 @@
 <template id="item-show-page">
   <div class="container">
 
-   <!--  <h1>this page shows the individual item within a user's closet</h1> -->
-
     <section id="work">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
-              <!-- <a class="image-popup text-center" href="#">
-              </a> -->
             </div>
           </div>
           <div class="col-md-6">
@@ -300,7 +296,7 @@
         <div class="row">
           <div class="col-md-6" v-for="item in user.items">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
-              <a class="image-popup text-center" href="#">
+              <a class="image-popup text-center" v-bind:href="'/#/items/' + item.id ">
                 <div class="work-title">
                   <h4 class="item-title">{{ item.name }}</h4>
                     <p class="item-size">Size: {{ item.size }}</p>
