@@ -238,28 +238,6 @@ var AddItemPage = {
     };
   },
   methods: {
-    // submit: function() {
-    //   var params = {
-    //     name: this.name,
-    //     status: 1,
-    //     color: this.color,
-    //     pattern: this.pattern,
-    //     size: this.size,
-    //     brand: this.brand,
-    //     user_id: current_user.id
-    //   };
-    //   axios
-    //     .post("/v1/items", params)
-    //     .then(function(response) {
-    //       router.push("/");
-    //     })
-    //     .catch(
-    //       function(error) {
-    //         this.errors = error.response.data.errors;
-    //         router.push("/login");
-    //       }.bind(this)
-    //     );
-    // },
     uploadFile: function(event) {
       if (event.target.files.length > 0) {
         var formData = new FormData();
@@ -280,6 +258,7 @@ var AddItemPage = {
             brand: ""
           };
           event.target.value = "";
+          router.push("/home");
         });
       }
     }
