@@ -72,6 +72,25 @@ var ItemShowPage = {
         console.log(this.item);
       }.bind(this)
     );
+  },
+  methods: {
+    borrow: function(item) {
+      var params = {
+        item_id: item.id,
+        owner_id: item.user_id
+        // return_date: Time.now,/
+      };
+      axios
+        .post("/v1/orders/", params)
+        .then(function(response) {
+          router.push("/sent");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
   }
 };
 
@@ -322,7 +341,7 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/");
+          router.push("/home");
         })
         .catch(
           function(error) {
