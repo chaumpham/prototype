@@ -99,7 +99,8 @@ var UserShowPage = {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      user: {}
+      user: {},
+      colorFilter: ""
     };
   },
   created: function() {
@@ -130,6 +131,9 @@ var UserShowPage = {
             this.errors = error.response.data.errors;
           }.bind(this)
         );
+    },
+    isValidItem: function(inputItem) {
+      return inputItem.color.includes(this.colorFilter);
     }
   }
 };

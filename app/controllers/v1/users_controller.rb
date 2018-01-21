@@ -22,6 +22,9 @@ class V1::UsersController < ApplicationController
   def show
     user_id = params["id"]
     user = User.find_by(id: user_id)
+    if params[:search]
+      user = user.where("user.items.color ILIKE ?", "%#{params[:search]}%")
+    end
     render json: user.as_json
   end
 end

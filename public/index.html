@@ -351,8 +351,9 @@
 
     <section id="work">
       <div class="container">
+        <input type="text" v-model="colorFilter" placeholder="Search by color">
         <div class="row">
-          <div class="col-md-6" v-for="item in user.items">
+          <div class="col-md-6" v-for="item in user.items" v-if="isValidItem(item)">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
               <a class="image-popup text-center" v-bind:href="'/#/items/' + item.id ">
                 <div class="work-title">
