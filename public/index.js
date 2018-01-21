@@ -1,5 +1,17 @@
 /* global Vue, VueRouter, axios */
 
+var LandingPage = {
+  template: "#landing-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!"
+    };
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  }
+};
+
 var HomePage = {
   template: "#home-page",
   data: function() {
@@ -12,6 +24,7 @@ var HomePage = {
     axios.get("/v1/items/").then(
       function(response) {
         this.items = response.data;
+        console.log(this.items);
       }.bind(this)
     );
   },
@@ -332,7 +345,10 @@ var LogoutPage = {
 
 var router = new VueRouter({
   routes: [
-    { path: "/", component: HomePage },
+    // { path: "/landing", component: LandingPage },
+    // { path: "/", component: HomePage },
+    { path: "/", component: LandingPage },
+    { path: "/home", component: HomePage },
     { path: "/users", component: UserPage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },

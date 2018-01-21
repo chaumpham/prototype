@@ -82,9 +82,12 @@
 							</div>
 							<div class="col-md-6">
 								<ul class="nav text-center">
-									<li class="active"><a href="/#/"><span>Home</span></a></li>
+									<!-- <li class="active"><a href="/#/"><span>Home</span></a></li>
+                  <li><a href="/#/landing">Landing Page</a></li> -->
+                  <li><a href="/#/home"><span>Home</span></a></li>
 									<li><a href="/#/users">Explore</a></li>
-									<!-- <li><a href="/#/orders">All Orders</a></li> -->
+                  <li><a href="/#/items/new">New Item</a></li>
+
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Account
@@ -98,13 +101,6 @@
                     </div>
                   </li>
 
-									<!-- <li><a href="/#/signup">Sign Up</a></li>
-									<li><a href="/#/login">Log In</a></li>
-									<li><a href="/#/logout">Log Out</a></li> -->
-
-
-									<li><a href="/#/items/new">New Item</a></li>
-
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Borrow Requests
@@ -115,8 +111,12 @@
                       <a class="dropdown-item" href="/#/received">Requests Received</a>
                     </div>
                     </li>
-									<!-- <li><a href="/#/sent">Requests Sent</a></li>
-									<li><a href="/#/received">Requests Received</a></li> -->
+                  <li><a href="/#/"><span>About</span></a></li>
+
+                  <!-- <li><a href="/#/signup">Sign Up</a></li>
+                  <li><a href="/#/login">Log In</a></li>
+                  <li><a href="/#/logout">Log Out</a></li> -->
+                  <!-- <li><a href="/#/orders">All Orders</a></li> -->
 								</ul>
 							</div>
 							<div class="col-md-3">
@@ -166,6 +166,58 @@
 	</body>
 </html>
 
+<template id="landing-page">
+  <div class="">
+    
+    <section id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+            <div class="intro animate-box">
+              <h2>Borrowing your friends' clothes has never been easier!</h2>
+            </div>
+          </div>
+        </div>
+      <div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 animate-box">
+            <div class="service">
+              <div class="service-icon">
+                <i class="icon-command"></i>
+              </div>
+              <h2>Brand Identity</h2> 
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+            </div>
+          </div>
+          <div class="col-md-4 animate-box">
+            <div class="service">
+              <div class="service-icon">
+                <i class="icon-drop2"></i>
+              </div>
+              <h2>Web Design &amp; UI</h2>
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+            </div>
+          </div>
+          <div class="col-md-4 animate-box">
+            <div class="service">
+              <div class="service-icon">
+                <i class="icon-anchor"></i>
+              </div>
+              <h2>Development &amp; CMS</h2>
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</template>
+
 <template id="home-page">
   <div class="">
 
@@ -174,7 +226,7 @@
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
               <div class="intro animate-box">
-                <h2>Borrowing your friends' clothes has never been easier!</h2>
+                <h2>Hello user!</h2>
               </div>
             </div>
           </div>
@@ -200,7 +252,7 @@
 			</div>
 		</section>
 
-		<section id="services">
+		<!-- <section id="services">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 animate-box">
@@ -232,7 +284,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
   </div>
 </template>
