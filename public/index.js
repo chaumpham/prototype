@@ -232,7 +232,8 @@ var AddItemPage = {
         color: "",
         pattern: "",
         size: "",
-        brand: ""
+        brand: "",
+        formData: null
       },
       errors: []
     };
@@ -247,10 +248,61 @@ var AddItemPage = {
         formData.append("size", this.newItem.size);
         formData.append("brand", this.newItem.brand);
         formData.append("image", event.target.files[0]);
+        this.formData = formData;
+      }
+    },
+    submit: function() {
+      axios.post("/v1/items/", this.formData).then(function(response) {
+        console.log(response);
+        this.newItem = {
+          name: "",
+          color: "",
+          pattern: "",
+          size: "",
+          brand: ""
+        };
+        event.target.value = "";
+        router.push("/home");
+      });
+    }
+  }
+};
 
-        axios.post("/v1/items", formData).then(function(response) {
+var EditItemPage = {
+  template: "#edit-item-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      editItem: {
+        name: "",
+        color: "",
+        pattern: "",
+        size: "",
+        brand: "",
+        formData: null
+      },
+      errors: []
+    };
+  },
+  methods: {
+    uploadFile: function(event) {
+      if (event.target.files.length > 0) {
+        var formData = new FormData();
+        formData.append("name", this.editItem.name);
+        formData.append("color", this.editItem.color);
+        formData.append("pattern", this.editItem.pattern);
+        formData.append("size", this.editItem.size);
+        formData.append("brand", this.editItem.brand);
+        formData.append("image", event.target.files[0]);
+        this.formData = formData;
+      }
+    },
+    submit: function() {
+      axios
+        .patch("/v1/items/" + this.$route.params.id, this.formData)
+        .then(function(response) {
           console.log(response);
-          this.newItem = {
+          this.editItem = {
             name: "",
             color: "",
             pattern: "",
@@ -259,8 +311,13 @@ var AddItemPage = {
           };
           event.target.value = "";
           router.push("/home");
-        });
-      }
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
     }
   }
 };
@@ -356,7 +413,8 @@ var router = new VueRouter({
     { path: "/orders", component: OrderPage },
     { path: "/sent", component: RequestsSent },
     { path: "/received", component: RequestsReceived },
-    { path: "/items/:id", component: ItemShowPage }
+    { path: "/items/:id", component: ItemShowPage },
+    { path: "/items/:id/edit", component: EditItemPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

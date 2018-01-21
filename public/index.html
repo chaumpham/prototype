@@ -245,7 +245,6 @@
                   <h4 class="item-title">{{ item.name }}</h4>
                     <p class="item-size">Size: {{ item.size }}</p>
                     <p class="item-brand">Brand: {{ item.brand }}</p>
-                    <p class="item-status">Status: {{ item.status }}</p>
                 </div>
               </a>
             </div>
@@ -282,11 +281,11 @@
           <div class="col-md-6">
             <div class="fh5co-grid animate-box">
               <h4 class="item-title">{{ item.name }}</h4>
-                <p class="item-size">Size: {{ item.size }}</p>
-                <p class="item-brand">Brand: {{ item.brand }}</p>
-                <p class="item-status">Status: {{ item.status }}</p>
-                <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
-                    </div>
+              <p class="item-size">Size: {{ item.size }}</p>
+              <p class="item-brand">Brand: {{ item.brand }}</p>
+              <p class="item-status">Status: {{ item.status }}</p>
+              <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
+              <a v-bind:href="  '/#/items/' + item.id + '/edit'   ">Edit this item</a>
             </div>
           </div>
         </div>
@@ -294,6 +293,43 @@
     </section>
 
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+
+  </div>
+</template>
+
+<template id="edit-item-page">
+  <div class="container">
+
+    <h1>Edit Item</h1>
+    <ul>
+      <li class="text-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    <div class="form-group">
+      <label>Item Name:</label>
+      <input type="text" class="form-control" v-model="editItem.name">
+    </div>
+    <div class="form-group">
+      <label>Color:</label>
+      <input type="text" class="form-control" v-model="editItem.color">
+    </div>
+    <div class="form-group">
+      <label>Pattern:</label>
+      <input type="text" class="form-control" v-model="editItem.pattern">
+    </div>
+    <div class="form-group">
+      <label>Size:</label>
+      <input type="text" class="form-control" v-model="editItem.size">
+    </div>
+    <div class="form-group">
+      <label>Brand:</label>
+      <input type="text" class="form-control" v-model="editItem.brand">
+    </div>
+    <div>
+     <label>Image:</label>
+     <input type="file" v-on:change="uploadFile($event)">
+    </div>
+
+    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
 
   </div>
 </template>
@@ -444,7 +480,7 @@
      <input type="file" v-on:change="uploadFile($event)">
     </div>
 
-    <button class="btn btn-primary" v-on:click="uploadFile()">Submit</button>
+    <button class="btn btn-primary" v-on:click="submit()">Submit</button>
   </div>
 </template>
 

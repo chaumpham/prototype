@@ -5,24 +5,6 @@ class V1::OrdersController < ApplicationController
     render json: order.as_json
   end
 
-  def sent
-    if current_user
-      orders = current_user.sent_orders
-      render json: orders.as_json
-    else
-      render json: {message: "Please login to view your sent requests"}
-    end
-  end
-
-  def received
-    if current_user
-      orders = current_user.received_orders
-      render json: orders.as_json
-    else
-      render json: {message: "Please login to view your received requests"}
-    end
-  end
-
   def create
     order = Order.new(
       borrower_id: current_user.id,
@@ -44,6 +26,24 @@ class V1::OrdersController < ApplicationController
     order.accepted = params[:status]
     order.save
     render json: order.as_json
+  end
+
+  def sent
+    if current_user
+      orders = current_user.sent_orders
+      render json: orders.as_json
+    else
+      render json: {message: "Please login to view your sent requests"}
+    end
+  end
+
+  def received
+    if current_user
+      orders = current_user.received_orders
+      render json: orders.as_json
+    else
+      render json: {message: "Please login to view your received requests"}
+    end
   end
 
 end

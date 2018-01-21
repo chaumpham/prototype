@@ -34,6 +34,19 @@ class V1::ItemsController < ApplicationController
     render json: item.as_json
   end
 
+  def update
+    item_id = params[:id]
+    item = Item.find_by(id: item_id)
+    item.name = params[:name] || item.name
+    item.color = params[:color] || item.color
+    item.pattern = params[:pattern] || item.pattern
+    item.size = params[:size] || item.size
+    item.brand = params[:brand] || item.brand
+    item.image = params[:image] || item.image
+    image.save
+    render json: item.as_json
+  end
+
   def threadgenius
     apikey = "fakekeyhahaha"
     response = Unirest.post("https://api.threadgenius.co/v1/catalog/bloglovin_fashion/search",    
