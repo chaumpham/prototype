@@ -9,7 +9,7 @@ var HomePage = {
     };
   },
   created: function() {
-    axios.get("/v1/items").then(
+    axios.get("/v1/items/").then(
       function(response) {
         this.items = response.data;
       }.bind(this)
@@ -31,7 +31,7 @@ var UserPage = {
     };
   },
   created: function() {
-    axios.get("/v1/users").then(
+    axios.get("/v1/users/").then(
       function(response) {
         this.users = response.data;
       }.bind(this)
@@ -46,15 +46,59 @@ var ItemShowPage = {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      item: { name: "test" }
+      item: {}
+    };
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
+  created: function() {
+    axios.get("/v1/items/" + this.$route.params.id).then(
+      function(response) {
+        this.item = response.data;
+        console.log(this.item);
+      }.bind(this)
+    );
+  }
+};
+
+var UserShowPage = {
+  template: "#user-show-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      user: {}
     };
   },
   created: function() {
-    axios.get("v1/items" + this.$route.params.id).then(
+    axios.get("/v1/users/" + this.$route.params.id).then(
       function(response) {
-        this.item = response.data;
+        this.user = response.data;
+        console.log(this.user);
       }.bind(this)
     );
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
+  methods: {
+    borrow: function(item) {
+      var params = {
+        item_id: item.id,
+        owner_id: item.user_id
+        // return_date: Time.now,/
+      };
+      axios
+        .post("/v1/orders/", params)
+        .then(function(response) {
+          router.push("/sent");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
   }
 };
 
@@ -137,46 +181,6 @@ var RequestsReceived = {
         .patch("/v1/orders/" + order.id, params)
         .then(function(response) {
           router.push("/received");
-        })
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-          }.bind(this)
-        );
-    }
-  }
-};
-
-var UserShowPage = {
-  template: "#user-show-page",
-  data: function() {
-    return {
-      message: "Welcome to Vue.js!",
-      user: {}
-    };
-  },
-  created: function() {
-    axios.get("/v1/users/" + this.$route.params.id).then(
-      function(response) {
-        this.user = response.data;
-        console.log(this.user);
-      }.bind(this)
-    );
-  },
-  mounted: function() {
-    setTimeout(initTheme, 200);
-  },
-  methods: {
-    borrow: function(item) {
-      var params = {
-        item_id: item.id,
-        owner_id: item.user_id
-        // return_date: Time.now,/
-      };
-      axios
-        .post("v1/orders", params)
-        .then(function(response) {
-          router.push("/sent");
         })
         .catch(
           function(error) {

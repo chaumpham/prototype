@@ -84,7 +84,6 @@
 								<ul class="nav text-center">
 									<li class="active"><a href="/#/"><span>Home</span></a></li>
 									<li><a href="/#/users">Explore</a></li>
-                  <li><a href="/#/items">Individual Item</a></li>
 									<!-- <li><a href="/#/orders">All Orders</a></li> -->
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -187,15 +186,12 @@
 				<div class="row">
           <div class="col-md-6" v-for="item in items">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
-              <a class="image-popup text-center" href="#">
+              <a class="image-popup text-center" v-bind:href="'/#/items/' + item.id">
                 <div class="work-title">
                   <h4 class="item-title">{{ item.name }}</h4>
                     <p class="item-size">Size: {{ item.size }}</p>
                     <p class="item-brand">Brand: {{ item.brand }}</p>
                     <p class="item-status">Status: {{ item.status }}</p>
-                    <router-link v-bind:to="{ path: '/items/' + item.id }">Link to Item</router-link>
-                    <!-- <p class="item-color">Color: {{ item.color }}</p> -->
-                    <!-- <p class="item-pattern">Pattern: {{ item.pattern }}</p> -->
                 </div>
               </a>
             </div>
@@ -238,7 +234,6 @@
 			</div>
 		</section>
 
-
   </div>
 </template>
 
@@ -256,9 +251,32 @@
 
 <template id="item-show-page">
   <div class="container">
-    <h1> {{message}} </h1>
-    <h1>this page shows the individual item within a user's closet</h1>
-    <p>Name: {{item.name}}</p>
+
+   <!--  <h1>this page shows the individual item within a user's closet</h1> -->
+
+    <section id="work">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
+              <!-- <a class="image-popup text-center" href="#">
+              </a> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="fh5co-grid animate-box">
+              <h4 class="item-title">{{ item.name }}</h4>
+                <p class="item-size">Size: {{ item.size }}</p>
+                <p class="item-brand">Brand: {{ item.brand }}</p>
+                <p class="item-status">Status: {{ item.status }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+
   </div>
 </template>
 
