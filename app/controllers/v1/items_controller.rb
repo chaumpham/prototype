@@ -31,7 +31,36 @@ class V1::ItemsController < ApplicationController
   def show
     item_id = params[:id]
     item = Item.find_by(id: item_id)
-    render json: item.as_json
+
+    #Convert image to base64 (decode)
+    path = Rails.public_path.to_s + item.image.url.split("?")[0]
+    data = File.read(path)
+    base64_image = Base64.encode64(data)
+    
+    response = Unirest.post("https://api.threadgenius.co/v1/catalog/bloglovin_fashion/search",    
+      headers: {
+        "Content-Type" => "application/json"
+      },
+      auth: {
+        :user=> "#{ENV['API_KEY']}"
+      },
+      parameters: {
+        image: { 
+          base64: base64_image
+        },
+        n_results: 5
+      }.to_json)
+
+    results = response.body["response"]["results"]
+    array = []
+    results.each do |result|
+      array << result["object"]["image"]["url"]
+    end
+
+    output = item.as_json
+    output["api_results"] = array
+
+    render json: output
   end
 
   def update
@@ -43,7 +72,7 @@ class V1::ItemsController < ApplicationController
     item.size = params[:size] || item.size
     item.brand = params[:brand] || item.brand
     item.image = params[:image] || item.image
-    image.save
+    item.save
     render json: item.as_json
   end
 
@@ -69,29 +98,6 @@ class V1::ItemsController < ApplicationController
       array << result["object"]["image"]["url"]
     end
     render json: array.as_json
-  end
-
-  def api
-    require "google/cloud/vision"
-
-    # Your Google Cloud Platform project ID
-    project_id = "my-project-1505510657043"
-    key_file   = "/Users/chaupham/Actualize/prototype/Wardrobe-cfbf75f97de9.json"
-
-    # Instantiates a client
-    vision = Google::Cloud::Vision.new project: project_id, keyfile: key_file
-
-    image_path = "/Users/chaupham/Downloads/item-4.jpg"
-    image  = vision.image image_path
-
-    web = image.web
-
-    array = []
-    # render json: web.entities.as_json
-    web.entities.each do |entity|
-      array << entity.description
-    end
-    render json: { array: array }
   end
 
 end

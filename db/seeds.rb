@@ -16,18 +16,20 @@ User.create([
 ])
 
 Item.create([
-  {name: "black AX pants", status: 1, color: "black", pattern: "solid", size: "XS", brand: "Armani Exchange", user_id:1},
-  {name: "b&w JC vest", status:1, color: "multi", pattern: "striped", size: "XXS", brand: "J.Crew", user_id:1},
-  {name: "champion crewneck sweater", status:1, color: "black", pattern:"solid", size: "S", brand: "Champion", user_id:1},
-  {name: "zara plaid blouse with sequin collar", status:1, color: "multi", pattern:"checked", size: "XS", brand: "Zara", user_id:1},
-  {name: "gray thermo legging", status:1, color: "gray", pattern:"solid", size: "XS", brand: "UNIQLO", user_id:1},
-  {name: "plaid oversized shirt", status:1, color: "multi", pattern:"checked", size: "XS", brand: "nordstrom", user_id:1, image: "https://cdna.lystit.com/photos/63c9-2016/01/21/zara-rednavy-check-shirt-red-product-2-044768255-normal.jpeg"},
-  {name: "body fit long sleeved shirt", status:1, color: "black", pattern:"solid", size: "XXS", brand: "J.Crew", user_id:1},
-  {name: "maroon fit sweater", status:1, color: "maroon", pattern:"solid", size: "S", brand: "Forever 21", user_id:2},
-  {name: "puma sneakers", status:1, color: "multi", pattern:"striped", size: "8", brand: "puma", user_id:2},
-  {name: "gray cardigan", status:1, color: "gray", pattern:"solid", size: "XS", brand: "unknown", user_id:3},
-  {name: "body fit ivory crewneck lightweight sweater", status:1, color: "ivory", pattern:"solid", size: "M", brand: "H&M", user_id:4},
-  {name: "straight cut jeans", status:1, color: "navy", pattern:"solid", size: "32", brand: "J.Crew", user_id:4},
-  {name: "zara winter coat navy", status:1, color: "navy", pattern:"solid", size: "S", brand: "Zara", user_id:1, image: "https://dtpmhvbsmffsz.cloudfront.net/posts/2016/10/01/57f0648f4127d005950191a5/m_57f0648f4127d005950191a6.jpg"}
+  {name: "RUNAROUND SUPER SKINNY JEANS", status: 1, color: "black", pattern: "solid", size: "XS", brand: "Levi's", user_id:1},
+  {name: "PRINTED QUILTED PUFFER VEST", status:1, color: "multi", pattern: "printed", size: "XXS", brand: "J.Crew", user_id:1},
+  {name: "CHAMPION CREWNECK SWEATER", status:1, color: "black", pattern:"solid", size: "S", brand: "Champion", user_id:1},
+  {name: "CHECKED TOP WITH SEQUIN COLLAR", status:1, color: "multi", pattern:"checked", size: "XS", brand: "Zara", user_id:1},
+  {name: "ALL SAINTS PENRYN JUMPER", status:1, color: "gray", pattern:"solid", size: "XS", brand: "all saints", user_id:1},
+  {name: "OVERSIZED FLANNEL", status:1, color: "red", pattern:"checked", size: "XS", brand: "nordstrom", user_id:1},
+  {name: "FAUX FUR HOOD WINTER JACKET", status:1, color: "navy", pattern:"solid", size: "XS", brand: "Zara", user_id:1},
+  {name: "ALL SAINTS CARME STRIPE TEE", status:1, color: "multi", pattern:"striped", size: "XXS", brand: "J.Crew", user_id:1},
+  {name: "EMERAL CROPPED SWEATER", status:1, color: "green", pattern:"solid", size: "S", brand: "Forever 21", user_id:2},
+  {name: "GRAY LONG CARDIGAN", status:1, color: "gray", pattern:"solid", size: "XXS", brand: "LOFT", user_id:3},
+  {name: "CREWNECK LIGHTWEIGHT FITTING SWEATER", status:1, color: "beige", pattern:"solid", size: "L", brand: "H&M", user_id:4},
+  {name: "STRIGHT CUT JEANS", status:1, color: "navy", pattern:"solid", size: "32", brand: "J.Crew", user_id:4},
+  {name: "PINK PUFFER JACKET", status:1, color: "pink", pattern:"solid", size: "S", brand: "Super Dry", user_id:5},
+  {name: "BLACK DRESS", status:1, color: "black", pattern:"solid", size: "M", brand: "ZARA", user_id:6},
+  {name: "BEIGE SOFT SWEATER", status:1, color: "beige", pattern:"solid", size: "S", brand: "H&M", user_id:6}
 ])
 

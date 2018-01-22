@@ -59,7 +59,8 @@ var ItemShowPage = {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      item: {}
+      item: {},
+      array: []
     };
   },
   mounted: function() {
@@ -69,7 +70,8 @@ var ItemShowPage = {
     axios.get("/v1/items/" + this.$route.params.id).then(
       function(response) {
         this.item = response.data;
-        console.log(this.item);
+        this.array = response.data["api_results"];
+        console.log(this.array);
       }.bind(this)
     );
   },
@@ -134,6 +136,113 @@ var UserShowPage = {
     },
     isValidItem: function(inputItem) {
       return inputItem.color.includes(this.colorFilter);
+    }
+  }
+};
+
+var AddItemPage = {
+  template: "#add-item-page",
+  data: function() {
+    return {
+      newItem: {
+        name: "",
+        color: "",
+        pattern: "",
+        size: "",
+        brand: "",
+        formData: null
+      },
+      errors: []
+    };
+  },
+  methods: {
+    uploadFile: function(event) {
+      if (event.target.files.length > 0) {
+        var formData = new FormData();
+        formData.append("name", this.newItem.name);
+        formData.append("color", this.newItem.color);
+        formData.append("pattern", this.newItem.pattern);
+        formData.append("size", this.newItem.size);
+        formData.append("brand", this.newItem.brand);
+        formData.append("image", event.target.files[0]);
+        this.formData = formData;
+      }
+    },
+    submit: function() {
+      axios.post("/v1/items/", this.formData).then(function(response) {
+        console.log(response);
+        this.newItem = {
+          name: "",
+          color: "",
+          pattern: "",
+          size: "",
+          brand: ""
+        };
+        event.target.value = "";
+        router.push("/home");
+      });
+    }
+  }
+};
+
+var EditItemPage = {
+  template: "#edit-item-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      editItem: {
+        name: "",
+        color: "",
+        pattern: "",
+        size: "",
+        brand: "",
+        formData: null
+      },
+      errors: []
+    };
+  },
+  mounted: function() {
+    axios.get("/v1/items/" + this.$route.params.id).then(
+      function(response) {
+        console.log(response.data);
+        this.editItem = response.data;
+      }.bind(this)
+    );
+  },
+  methods: {
+    uploadFile: function(event) {
+      if (event.target.files.length > 0) {
+        var formData = new FormData();
+        formData.append("name", this.editItem.name);
+        formData.append("color", this.editItem.color);
+        formData.append("pattern", this.editItem.pattern);
+        formData.append("size", this.editItem.size);
+        formData.append("brand", this.editItem.brand);
+        formData.append("image", event.target.files[0]);
+        this.formData = formData;
+      }
+    },
+    submit: function() {
+      axios
+        .patch("/v1/items/" + this.$route.params.id, this.formData)
+        .then(function(response) {
+          console.log(response);
+          this.editItem = {
+            name: "",
+            color: "",
+            pattern: "",
+            size: "",
+            brand: ""
+          };
+          event.target.value = "";
+          router.push("/home");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
     }
   }
 };
@@ -221,105 +330,6 @@ var RequestsReceived = {
         .catch(
           function(error) {
             this.errors = error.response.data.errors;
-          }.bind(this)
-        );
-    }
-  }
-};
-
-var AddItemPage = {
-  template: "#add-item-page",
-  data: function() {
-    return {
-      newItem: {
-        name: "",
-        color: "",
-        pattern: "",
-        size: "",
-        brand: "",
-        formData: null
-      },
-      errors: []
-    };
-  },
-  methods: {
-    uploadFile: function(event) {
-      if (event.target.files.length > 0) {
-        var formData = new FormData();
-        formData.append("name", this.newItem.name);
-        formData.append("color", this.newItem.color);
-        formData.append("pattern", this.newItem.pattern);
-        formData.append("size", this.newItem.size);
-        formData.append("brand", this.newItem.brand);
-        formData.append("image", event.target.files[0]);
-        this.formData = formData;
-      }
-    },
-    submit: function() {
-      axios.post("/v1/items/", this.formData).then(function(response) {
-        console.log(response);
-        this.newItem = {
-          name: "",
-          color: "",
-          pattern: "",
-          size: "",
-          brand: ""
-        };
-        event.target.value = "";
-        router.push("/home");
-      });
-    }
-  }
-};
-
-var EditItemPage = {
-  template: "#edit-item-page",
-  data: function() {
-    return {
-      message: "Welcome to Vue.js!",
-      editItem: {
-        name: "",
-        color: "",
-        pattern: "",
-        size: "",
-        brand: "",
-        formData: null
-      },
-      errors: []
-    };
-  },
-  methods: {
-    uploadFile: function(event) {
-      if (event.target.files.length > 0) {
-        var formData = new FormData();
-        formData.append("name", this.editItem.name);
-        formData.append("color", this.editItem.color);
-        formData.append("pattern", this.editItem.pattern);
-        formData.append("size", this.editItem.size);
-        formData.append("brand", this.editItem.brand);
-        formData.append("image", event.target.files[0]);
-        this.formData = formData;
-      }
-    },
-    submit: function() {
-      axios
-        .patch("/v1/items/" + this.$route.params.id, this.formData)
-        .then(function(response) {
-          console.log(response);
-          this.editItem = {
-            name: "",
-            color: "",
-            pattern: "",
-            size: "",
-            brand: ""
-          };
-          event.target.value = "";
-          router.push("/home");
-        })
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-            router.push("/login");
           }.bind(this)
         );
     }
