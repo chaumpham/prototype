@@ -96,13 +96,58 @@ var ItemShowPage = {
   }
 };
 
+var ItemShowPageBorrow = {
+  template: "#item-show-page-borrow",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!",
+      item: {},
+      array: []
+    };
+  },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
+  created: function() {
+    axios.get("/v1/items/" + this.$route.params.id).then(
+      function(response) {
+        this.item = response.data;
+        this.array = response.data["api_results"];
+        console.log(this.array);
+      }.bind(this)
+    );
+  },
+  methods: {
+    borrow: function(item) {
+      var params = {
+        item_id: item.id,
+        owner_id: item.user_id
+        // return_date: Time.now,/
+      };
+      axios
+        .post("/v1/orders/", params)
+        .then(function(response) {
+          router.push("/sent");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
 var UserShowPage = {
   template: "#user-show-page",
   data: function() {
     return {
       message: "Welcome to Vue.js!",
       user: {},
-      colorFilter: ""
+      nameFilter: "",
+      colorFilter: "",
+      patternFilter: "",
+      brandFilter: ""
     };
   },
   created: function() {
@@ -135,7 +180,11 @@ var UserShowPage = {
         );
     },
     isValidItem: function(inputItem) {
-      return inputItem.color.includes(this.colorFilter);
+      var validName = inputItem.name.toLowerCase().includes(this.nameFilter);
+      var validColor = inputItem.color.includes(this.colorFilter);
+      var validPattern = inputItem.pattern.includes(this.patternFilter);
+      var validBrand = inputItem.brand.toLowerCase().includes(this.brandFilter);
+      return validName && validColor && validPattern && validBrand;
     }
   }
 };
@@ -428,6 +477,7 @@ var router = new VueRouter({
     { path: "/sent", component: RequestsSent },
     { path: "/received", component: RequestsReceived },
     { path: "/items/:id", component: ItemShowPage },
+    { path: "/borrow/items/:id", component: ItemShowPageBorrow },
     { path: "/items/:id/edit", component: EditItemPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {

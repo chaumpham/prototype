@@ -86,7 +86,7 @@
   									<a class="fh5co-logo" href="index.html"><img src="images/brand-nav.png" alt="Closest Logo"></a>
   								</div>
   							</div> -->
-  							<div class="col-md-9">
+  							<div class="col-md-12">
   								<ul class="nav text-center">
   									<!-- <li class="active"><a href="/#/"><span>Home</span></a></li>
                     <li><a href="/#/landing">Landing Page</a></li> -->
@@ -126,13 +126,13 @@
                     <!-- <li><a href="/#/orders">All Orders</a></li> -->
   								</ul>
   							</div>
-  							<div class="col-md-3">
+  						<!-- 	<div class="col-md-3">
   								<ul class="social">
   									<li><a href="#"><i class="icon-twitter"></i></a></li>
   									<li><a href="#"><i class="icon-dribbble"></i></a></li>
   									<li><a href="#"><i class="icon-instagram"></i></a></li>
   								</ul>
-  							</div>
+  							</div> -->
   						</div>
   					</nav>
   			  </div>
@@ -196,8 +196,8 @@
               <div class="service-icon">
                 <i class="icon-command"></i>
               </div>
-              <h2>Brand Identity</h2> 
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2>Create Your Closet</h2> 
+              <p>add new items to your closet</p>
             </div>
           </div>
           <div class="col-md-4 animate-box">
@@ -205,8 +205,8 @@
               <div class="service-icon">
                 <i class="icon-drop2"></i>
               </div>
-              <h2>Web Design &amp; UI</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2>Browse Others' Closets</h2>
+              <p>See what your friends have</p>
             </div>
           </div>
           <div class="col-md-4 animate-box">
@@ -214,8 +214,8 @@
               <div class="service-icon">
                 <i class="icon-anchor"></i>
               </div>
-              <h2>Development &amp; CMS</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2>Borrow with One Click!</h2>
+              <p>Let your friend know you would like to borrow their clothes</p>
             </div>
           </div>
         </div>
@@ -291,10 +291,46 @@
               <h4 class="item-title">{{ item.name }}</h4>
               <p class="item-size">{{ item.size }}</p>
               <p class="item-brand">{{ item.brand }}</p>
-              <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
               <div>
                 <a v-bind:href="  '/#/items/' + item.id + '/edit'   ">Edit this item</a>
               </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" v-for="thing in array">
+            <div class="card mb-2">
+              <img class="card-img-top" v-bind:src="thing" alt="Card image cap">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
+
+  </div>
+</template>
+
+<template id="item-show-page-borrow">
+  <div class="container">
+
+    <section id="work">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="fh5co-grid animate-box">
+              <h4 class="item-title">{{ item.name }}</h4>
+              <p class="item-size">{{ item.size }}</p>
+              <p class="item-brand">{{ item.brand }}</p>
+              <button class="btn btn-primary" v-on:click="borrow(item)">borrow</button>
             </div>
           </div>
 
@@ -368,18 +404,21 @@
 
     <section id="work">
       <div class="container">
-        <input type="text" v-model="colorFilter" placeholder="Search by color">
+        <input type="text" v-model="nameFilter" placeholder="search by item name">
+        <input type="text" v-model="colorFilter" placeholder="search by color">
+        <input type="text" v-model="patternFilter" placeholder="search by pattern">
+        <input type="text" v-model="brandFilter" placeholder="search by brand">
         <div class="row">
           <div class="col-md-6" v-for="item in user.items" v-if="isValidItem(item)">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
-              <a class="image-popup text-center" v-bind:href="'/#/items/' + item.id ">
+              <a class="image-popup text-center" v-bind:href="'/#/borrow/items/' + item.id ">
                 <div class="work-title">
                   <h4 class="item-title">{{ item.name }}</h4>
                     <p class="item-size">Size: {{ item.size }}</p>
                     <p class="item-brand">Brand: {{ item.brand }}</p>
                     <p class="item-status">Status: {{ item.status }}</p>
                     <div>
-                    <button class="btn btn-primary" v-on:click="borrow(item)">borrow this item</button>
+                    <button class="btn btn-primary" v-on:click="borrow(item)">one-click borrow</button>
                     </div>
                 </div>
               </a>
