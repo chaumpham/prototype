@@ -105,7 +105,8 @@ var ItemShowPageBorrow = {
     return {
       message: "Welcome to Vue.js!",
       item: {},
-      array: []
+      array: [],
+      loadingMatchesMessage: "Loading..."
     };
   },
   mounted: function() {
@@ -115,8 +116,16 @@ var ItemShowPageBorrow = {
     axios.get("/v1/items/" + this.$route.params.id).then(
       function(response) {
         this.item = response.data;
+        // this.array = response.data["api_results"];
+        // console.log(this.array);
+      }.bind(this)
+    );
+    axios.get("/v1/items/" + this.$route.params.id + "/matches").then(
+      function(response) {
+        // this.item = response.data;
         this.array = response.data["api_results"];
         console.log(this.array);
+        this.loadingMatchesMessage = "";
       }.bind(this)
     );
   },

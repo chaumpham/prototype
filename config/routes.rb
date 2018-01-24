@@ -8,8 +8,11 @@ Rails.application.routes.draw do
     get "/items" => "items#index"
     post "/items" => "items#create"
     get "/items/:id" => "items#show"
+    get "/items/:id/matches" => "items#show_with_matches"
     patch "/items/:id" => "items#update"
     get "/api" => "items#api"
+    get "/shopstyle" => "items#ss"
+    get "/metainspector" => "items#metainspector"
     get "/threadgenius" => "items#threadgenius"
 
     get "/orders" => "orders#index"
