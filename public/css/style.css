@@ -240,6 +240,7 @@ h6 {
   margin-bottom: 30px;
   position: relative;
 }
+
 @media screen and (max-width: 480px) {
   #work .fh5co-grid {
     height: 400px;
@@ -505,6 +506,35 @@ footer .social {
 
 .js .animate-box {
   opacity: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196f3;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+#portfoliolist .portfolio {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  width: 33.33%;
+  display: none;
+  float: left;
+  overflow: hidden;
+}
+.portfolio-wrapper {
+  overflow: hidden;
+  position: relative !important;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

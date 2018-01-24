@@ -50,6 +50,9 @@ var UserPage = {
       }.bind(this)
     );
   },
+  mounted: function() {
+    setTimeout(initTheme, 200);
+  },
   methods: {},
   computed: {}
 };

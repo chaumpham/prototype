@@ -42,16 +42,24 @@ class V1::ItemsController < ApplicationController
         "Content-Type" => "application/json"
       },
       auth: {
-        :user=> "#{ENV['API_KEY']}"
+        # :user=> "#{ENV['API_KEY']}"
+        :user => "key_NjMwYzhkYmVlMDc3NWIyY2ZiNjZiZTU5NDc2ZDNi"
       },
       parameters: {
         image: { 
           base64: base64_image
         },
-        n_results: 5
+        n_results: 9
       }.to_json)
 
-    results = response.body["response"]["results"]
+    results = response.body["response"] ? response.body["response"]["results"] : []
+
+    puts "*" * 50
+    p response.body
+    puts "*" * 50
+
+    p results 
+
     array = []
     results.each do |result|
       array << result["object"]["image"]["url"]
@@ -74,30 +82,6 @@ class V1::ItemsController < ApplicationController
     item.image = params[:image] || item.image
     item.save
     render json: item.as_json
-  end
-
-  def threadgenius
-    apikey = "fakekeyhahaha"
-    response = Unirest.post("https://api.threadgenius.co/v1/catalog/bloglovin_fashion/search",    
-      headers: {
-        "Content-Type" => "application/json"
-      },
-      auth: {
-        :user=>apikey
-      },
-      parameters: {
-        image: { 
-          url: "https://dtpmhvbsmffsz.cloudfront.net/posts/2016/10/01/57f0648f4127d005950191a5/m_57f0648f4127d005950191a6.jpg",
-        },
-        n_results: 5
-      }.to_json)
-
-    results = response.body["response"]["results"]
-    array = []
-    results.each do |result|
-      array << result["object"]["image"]["url"]
-    end
-    render json: array.as_json
   end
 
 end

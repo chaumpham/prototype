@@ -52,13 +52,6 @@
 
 		<link rel="stylesheet" href="css/style.css">
 
-    <!-- BootStrap Style -->
-   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="recipes.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
-
 		<!-- Modernizr JS -->
 		<script src="js/modernizr-2.6.2.min.js"></script>
 		<!-- FOR IE9 below -->
@@ -233,12 +226,12 @@
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
               <div class="intro animate-box">
-                <h2>Hello user!</h2>
-                  <h3>Start creating your closet by clicking 'New Item'</h3>
+                <h2>Hello!</h2>
+                  <h3> You have {{ items.length }} items in your closet.</h3>
               </div>
             </div>
           </div>
-        <div>
+        </div>
       </section>
 
     <section id="work">
@@ -263,15 +256,39 @@
 </template>
 
 <template id="user-page">
-  <div class="container">
-    <h1>All Users Page</h1>
-    <h3>this page displays all users in the database</h3>
-    <div class="user-list" v-for="user in users">
-      <h4 class="user-name">{{user.first_name}} {{user.last_name}}</h4>
-      <p class="user-email">{{user.email}}</p>
-      <router-link v-bind:to="{ path: '/users/' + user.id }">User's Wardrobe</router-link>
+  <div class="">
+
+    <section id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+            <div class="intro animate-box">
+              <h2>Explore Your Friends' Closets</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-4" v-for="user in users">
+          <div class="well" style="height: 120px !important">
+            <h4 class="user-name">{{user.first_name}} {{user.last_name}}</h4>
+            <router-link v-bind:to="{ path: '/users/' + user.id }"> {{user.first_name}}'s Wardrobe</router-link>
+          </div>
+        </div>
+
+        <!-- <div class="user-list" v-for="user in users">
+          <h4 class="user-name">{{user.first_name}} {{user.last_name}}</h4>
+          <p class="user-email">{{user.email}}</p>
+          <router-link v-bind:to="{ path: '/users/' + user.id }">User's Wardrobe</router-link>
+        </div> -->
+      </div>
     </div>
-  </div>
+
+  </div>  
 </template>
 
 <template id="item-show-page">
@@ -297,16 +314,19 @@
             </div>
           </div>
 
-          <div class="col-md-6" v-for="thing in array">
-            <div class="card mb-2">
-              <img class="card-img-top" v-bind:src="thing" alt="Card image cap">
-            </div>
-          </div>
-
         </div>
       </div>
-    </section>
 
+      <div class="row">
+        <div class="col-md-4" v-for="thing in array">
+          <div class="well" style="height: 350px !important">
+            <div v-bind:style="'background-image: url(' + thing + '); background-size: cover; height: 100%'"></div>
+            <!-- <img v-bind:src="thing" style="height: 100%"> -->
+          </div>
+        </div>
+      </div>
+
+    </section>
 
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
 
@@ -334,16 +354,19 @@
             </div>
           </div>
 
-          <div class="col-md-6" v-for="thing in array">
-            <div class="card mb-2">
-              <img class="card-img-top" v-bind:src="thing" alt="Card image cap">
-            </div>
-          </div>
-
         </div>
       </div>
-    </section>
 
+    <div class="row">
+      <div class="col-md-4" v-for="thing in array">
+        <div class="well" style="height: 350px !important">
+          <div v-bind:style="'background-image: url(' + thing + '); background-size: cover; height: 100%'"></div>
+          <!-- <img v-bind:src="thing" style="height: 100%"> -->
+        </div>
+      </div>
+    </div>
+
+    </section>
 
     <router-link v-bind:to="{ path: '/users'}">back to all users</router-link>
 
@@ -403,11 +426,23 @@
       </section>
 
     <section id="work">
+
       <div class="container">
-        <input type="text" v-model="nameFilter" placeholder="search by item name">
-        <input type="text" v-model="colorFilter" placeholder="search by color">
-        <input type="text" v-model="patternFilter" placeholder="search by pattern">
-        <input type="text" v-model="brandFilter" placeholder="search by brand">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" v-model="nameFilter" class="form-control" placeholder="search by name">
+          </div>
+          <div class="form-group">
+            <input type="text" v-model="colorFilter" class="form-control" placeholder="search by color">
+          </div>
+          <div class="form-group">
+            <input type="text" v-model="patternFilter" class="form-control" placeholder="search by pattern">
+          </div>
+          <div class="form-group">
+            <input type="text" v-model="brandFilter" class="form-control" placeholder="search by brand">
+          </div>
+        </form>
+
         <div class="row">
           <div class="col-md-6" v-for="item in user.items" v-if="isValidItem(item)">
             <div class="fh5co-grid animate-box" v-bind:style="'background-image: url(' + item.image + ');'">
