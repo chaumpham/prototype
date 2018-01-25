@@ -106,7 +106,7 @@ var ItemShowPageBorrow = {
       message: "Welcome to Vue.js!",
       item: {},
       array: [],
-      loadingMatchesMessage: "Loading..."
+      loadingMatchesMessage: "Analyzing..."
     };
   },
   mounted: function() {

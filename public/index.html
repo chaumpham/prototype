@@ -450,9 +450,8 @@
               <a class="image-popup text-center" v-bind:href="'/#/borrow/items/' + item.id ">
                 <div class="work-title">
                   <h4 class="item-title">{{ item.name }}</h4>
-                    <p class="item-size">Size: {{ item.size }}</p>
-                    <p class="item-brand">Brand: {{ item.brand }}</p>
-                    <p class="item-status">Status: {{ item.status }}</p>
+                    <p class="item-size">{{ item.size }}</p>
+                    <p class="item-brand">{{ item.brand }}</p>
                     <div>
                     <button class="btn btn-primary" v-on:click="borrow(item)">one-click borrow</button>
                     </div>
@@ -475,7 +474,7 @@
 			<h3 class="item-id"> Item Id: {{order.item_id}}</h3>
 			<p class="onwer-id"> Owner Id: {{order.owner_id}}</p>
 			<p class="borrower-id"> Borrower Id: {{order.borrower_id}}</p>
-			<p class="return-date"> Return Date: {{order.return_date}}</p>
+			<!-- <p class="return-date"> Return Date: {{order.return_date}}</p> -->
 			<p class="accepted"> Request Status: {{order.accepted}}</p>
 		</div>
 	</div>
